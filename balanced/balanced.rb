@@ -15,18 +15,8 @@ require_relative 'benchmarks'
 
 class Balanced
   extend Benchmarks
-  
+
   def self.balancedFragmentLength(string)
-    new(string).balancedFragmentLength
-  end
-
-  attr_reader :string
-
-  def initialize(string)
-    @string = string
-  end
-
-  def balancedFragmentLength
     fragment = ''
     0.upto(string.length - 1) do |i|
       unmatched = []
@@ -35,10 +25,10 @@ class Balanced
       
       (i + 1).upto(string.length - 1) do |j|
         char = string[j]
-        char_reversed = reverse_case(char)
+        char_reversed = char.swapcase
         if matched.include?(char)
           string[i] == char ? break : next
-        elsif unmatched.delete(char_reversed)
+        elsif unmatched.delete(char_reversed) # if clause is true if char_reversed is successfully found and deleted
           if unmatched.empty?
             current = string[i..j]
             fragment = current if fragment.empty? || current.length < fragment.length
@@ -54,12 +44,6 @@ class Balanced
     end
     fragment.empty? ? -1 : fragment
   end
-
-  private
-
-  def reverse_case(char)
-    char.match?(/[a-z]/) ? char.upcase : char.downcase
-  end
 end
 
 # puts Balanced.balancedFragmentLength('azAabBZ')
@@ -68,6 +52,5 @@ end
 # puts Balanced.balancedFragmentLength('AcZCbaBz') # shortest balanced fragment is whole string, returns 8
 # puts Balanced.balancedFragmentLength('abcdefghijklmnopqrstuvwxyz') # no balanced fragment, returns -1
 # puts Balanced.balancedFragmentLength('abcdefgHIJABCDEFGahij') # bcdefgHIJABCDEFGahij
-
 
 Balanced.benchmark
