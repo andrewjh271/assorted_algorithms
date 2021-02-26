@@ -1,0 +1,76 @@
+string = 'azABaabza'
+
+balanced = '' // will keep track of smallest balanced substring found
+for(let i = 0; i < string.length; i++) {
+  matched = []   // array that stores letters whose match has already been found
+  unmatched = [] // array that stores letters whose match has not been found
+  // create an incrementally larger substring with char as start, but first...
+  matched.push(string[i]) // first letter of substring is unmatched
+  for(let j = (i + 1); j < string.length; j++) {
+    char = string[j]
+    charSwapped = char.swapcase
+
+    if matched[] includes char
+      // to to next iteration of inside loop, increasing the size of the current substring
+      // without changing matched[] or unmatched[]
+      next
+    else if unmatched[] includes charSwapped
+      if unmatched[] is empty
+        // the substring bound by i and j (inclusive) is balanced, and is the smallest balanced substring with i as its start
+        currentBalanced = string.slice(i, j+1)
+        if(balanced == '' || currentBalanced.length < balanced.length) balanced = currentBalanced
+        // go to next iteration of outside loop
+        break
+      else
+        delete charSwapped from unmatched[]
+        push char and charSwapped into matched[]
+    else
+      // add char to unmatched[] unless it's already there
+  }
+}
+
+
+// same algorithm with a couple added guard clauses to try to break out of loops early...
+
+string = 'azABaabza'
+
+balanced = '' // will keep track of smallest balanced substring found
+for(let i = 0; i < string.length; i++) {
+  matched = []   // array that stores letters whose match has already been found
+  unmatched = [] // array that stores letters whose match has not been found
+  // create an incrementally larger substring with char as start, but first...
+  matched.push(string[i]) // first letter of substring is unmatched
+  for(let j = (i + 1); j < string.length; j++) {
+    char = string[j]
+    charSwapped = char.swapcase
+
+    if matched[] includes char
+      // if char is equal to the first character of the inner loop's substring,
+      // then the first character is not necessary to create a balanced substring
+      // because char will serve that purpose
+      // break out of inside loop — even if a balanced substring can be found, that would mean a shorter
+      // one will also be found in a later iteration of the outside loop, one that doesn't have
+      // the unnecessary duplication
+      if char == string[i] {
+        break
+      } else {
+        next // to to next iteration of inside loop, increasing the size of the current substring
+             // without changing matched[] or unmatched[]
+      }
+    else if unmatched[] includes charSwapped
+      if unmatched[] is empty
+        // the substring bound by i and j (inclusive) is balanced, and is the smallest balanced substring with i as its start
+        balanced = string.slice(i, j+1)
+        // go to next iteration of outside loop
+        break
+      else
+        delete charSwapped from unmatched[]
+        push char and charSwapped into matched[]
+    else if
+      if(unmatched.length > j - i) break;
+      // not enough characters left to find matches for all the unmatched characters —
+      // go to next iteration of outside loop
+    else
+      // add char to unmatched[] unless it's already there
+  }
+}
