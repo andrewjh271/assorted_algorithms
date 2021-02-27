@@ -4,8 +4,8 @@ balanced = '' // will keep track of smallest balanced substring found
 for(let i = 0; i < string.length; i++) {
   matched = []   // array that stores letters whose match has already been found
   unmatched = [] // array that stores letters whose match has not been found
-  // create an incrementally larger substring with char as start, but first...
-  matched.push(string[i]) // first letter of substring is unmatched
+  // create an incrementally larger substring with string[i] as start, but first...
+  unmatched.push(string[i]) // first letter of substring is unmatched
   for(let j = (i + 1); j < string.length; j++) {
     char = string[j]
     charSwapped = char.swapcase
@@ -16,10 +16,10 @@ for(let i = 0; i < string.length; i++) {
       next
     else if unmatched[] includes charSwapped
       if unmatched[] is empty
-        // the substring bound by i and j (inclusive) is balanced, and is the smallest balanced substring with i as its start
+        // the substring bound by i and j (inclusive) is balanced, and is the smallest balanced substring with string[i] as its start
         currentBalanced = string.slice(i, j+1)
         if(balanced == '' || currentBalanced.length < balanced.length) balanced = currentBalanced
-        // go to next iteration of outside loop
+        // go to next iteration of outside loop to check for smaller balanced substring with different starting character
         break
       else
         delete charSwapped from unmatched[]
@@ -38,8 +38,8 @@ balanced = '' // will keep track of smallest balanced substring found
 for(let i = 0; i < string.length; i++) {
   matched = []   // array that stores letters whose match has already been found
   unmatched = [] // array that stores letters whose match has not been found
-  // create an incrementally larger substring with char as start, but first...
-  matched.push(string[i]) // first letter of substring is unmatched
+  // create an incrementally larger substring with string[i] as start, but first...
+  unmatched.push(string[i]) // first letter of substring is unmatched
   for(let j = (i + 1); j < string.length; j++) {
     char = string[j]
     charSwapped = char.swapcase
@@ -59,9 +59,9 @@ for(let i = 0; i < string.length; i++) {
       }
     else if unmatched[] includes charSwapped
       if unmatched[] is empty
-        // the substring bound by i and j (inclusive) is balanced, and is the smallest balanced substring with i as its start
+        // the substring bound by i and j (inclusive) is balanced, and is the smallest balanced substring with string[i] as its start
         balanced = string.slice(i, j+1)
-        // go to next iteration of outside loop
+        // go to next iteration of outside loop to check for smaller balanced substring with different starting character
         break
       else
         delete charSwapped from unmatched[]
