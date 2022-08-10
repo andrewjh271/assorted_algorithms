@@ -20,35 +20,33 @@ https://leetcode.com/problems/trapping-rain-water/
 */
 
 const trap = (heights) => {
-  let rainwater = 0;
-  let lftBound = heights[0];
-  let currentTrap = [];
+  let rain = 0;
+  let limitLft = heights[0];
+  let j = heights.length - 1;
+  let limitRt = heights[j];
 
-  for(let i = 1; i < heights.length; i++) {
-    if(!lftBound) { // find first non-zero value
-      lftBound = heights[i];
+  for(let i = 1; i < j; i++) {
+    if(!limitLft) {
+      limitLft = heights[i];
       continue;
     }
 
-    if(heights[i] < lftBound) {
-      currentTrap.push(heights[i]);
-    } else {
-      rainwater += currentTrap.reduce((sum, item) => sum + (lftBound - item), 0);
-      lftBound = heights[i];
-      currentTrap = [];
+    while(limitRt < limitLft) {
+      j--;
+      if(heights[j] < limitRt) {
+        rain += (limitRt - heights[j]);
+      } else if(heights[j] > limitRt) {
+        limitRt = heights[j];
+      }   
+      if(j < (i + 1)) return rain;
     }
-  }
 
-  if(currentTrap.length > 0) { // end of heights array reached with no value >= current lftBound
-    let rtBound = Math.max(...currentTrap);
-    let index;
-    for(let i = currentTrap.length - 1; i >= 0; i--) {
-      if (currentTrap[i] === rtBound) {
-        index = i;
-        break;
-      }
+    if (heights[i] < limitLft) {
+      rain += (limitLft - heights[i]);
+    } else if(heights[i] > limitLft) {
+      limitLft = heights[i];
     }
-    rainwater += currentTrap.slice(0, index).reduce((sum, item) => sum + (rtBound - item), 0);
+
   }
-  return rainwater;
+  return rain;
 }
